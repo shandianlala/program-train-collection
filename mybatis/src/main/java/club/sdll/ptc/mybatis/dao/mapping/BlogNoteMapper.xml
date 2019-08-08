@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="club.sdll.ptc.mybatis.dao.BlogNoteMapper" >
+  <resultMap id="BaseResultMap" type="club.sdll.ptc.mybatis.pojo.BlogNote" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="second_title" property="secondTitle" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="blog_eye" property="blogEye" jdbcType="INTEGER" />
+    <result column="blog_star" property="blogStar" jdbcType="INTEGER" />
+    <result column="blog_thumbs" property="blogThumbs" jdbcType="INTEGER" />
+    <result column="blog_download" property="blogDownload" jdbcType="INTEGER" />
+    <result column="blog_comment" property="blogComment" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="club.sdll.ptc.mybatis.pojo.BlogNote" extends="BaseResultMap" >
+    <result column="blog_content" property="blogContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, second_title, status, create_time, update_time, type, blog_eye, blog_star, blog_thumbs, blog_download, blog_comment 
+  </sql>
+  <sql id="Blob_Column_List" >
+    blog_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_note
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <!-- 查询最新的一篇日志 -->
+  <select id="selectByUpdate" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_note
+    where create_time = (select max(create_time) from blog_note)
+  </select>
+  <!-- 获取最新的10条博客记录 -->
+  <select id="listBlogNote" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from blog_note
+    where create_time != (select max(create_time) from blog_note) order by create_time desc limit 10
+  </select>
+  <!-- 获取上一篇，下一篇日志 -->
+  <select id="selectByUpOrDownBlogNote" resultMap="ResultMapWithBLOBs"  >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_note
+    where  
+    <choose>
+    	<when test="operate == 1">
+    		<![CDATA[ create_time > ]]> #{createTime,jdbcType=TIMESTAMP}  
+    	</when>
+    	<when test="operate == 0">
+    		<![CDATA[ create_time < ]]> #{createTime,jdbcType=TIMESTAMP} 
+    	</when>
+    	<otherwise></otherwise>
+    </choose>
+    ORDER BY create_time  
+    <choose>
+    	<when test="operate == 1">
+    		ASC	 
+    	</when>
+    	<otherwise>
+    		DESC
+    	</otherwise>
+    </choose>
+    LIMIT 1
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from blog_note
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="club.sdll.ptc.mybatis.pojo.BlogNote" >
+    insert into blog_note (id, title, second_title, 
+      status, create_time, update_time, 
+      type, blog_eye, blog_star, 
+      blog_thumbs, blog_download, blog_comment, 
+      blog_content)
+    values (#{id,jdbcType=CHAR}, #{title,jdbcType=VARCHAR}, #{secondTitle,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=CHAR}, #{blogEye,jdbcType=INTEGER}, #{blogStar,jdbcType=INTEGER}, 
+      #{blogThumbs,jdbcType=INTEGER}, #{blogDownload,jdbcType=INTEGER}, #{blogComment,jdbcType=INTEGER}, 
+      #{blogContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="club.sdll.ptc.mybatis.pojo.BlogNote" >
+    insert into blog_note
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="secondTitle != null" >
+        second_title,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="blogEye != null" >
+        blog_eye,
+      </if>
+      <if test="blogStar != null" >
+        blog_star,
+      </if>
+      <if test="blogThumbs != null" >
+        blog_thumbs,
+      </if>
+      <if test="blogDownload != null" >
+        blog_download,
+      </if>
+      <if test="blogComment != null" >
+        blog_comment,
+      </if>
+      <if test="blogContent != null" >
+        blog_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="secondTitle != null" >
+        #{secondTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="blogEye != null" >
+        #{blogEye,jdbcType=INTEGER},
+      </if>
+      <if test="blogStar != null" >
+        #{blogStar,jdbcType=INTEGER},
+      </if>
+      <if test="blogThumbs != null" >
+        #{blogThumbs,jdbcType=INTEGER},
+      </if>
+      <if test="blogDownload != null" >
+        #{blogDownload,jdbcType=INTEGER},
+      </if>
+      <if test="blogComment != null" >
+        #{blogComment,jdbcType=INTEGER},
+      </if>
+      <if test="blogContent != null" >
+        #{blogContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="club.sdll.ptc.mybatis.pojo.BlogNote" >
+    update blog_note
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="secondTitle != null" >
+        second_title = #{secondTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="blogEye != null" >
+        blog_eye = #{blogEye,jdbcType=INTEGER},
+      </if>
+      <if test="blogStar != null" >
+        blog_star = #{blogStar,jdbcType=INTEGER},
+      </if>
+      <if test="blogThumbs != null" >
+        blog_thumbs = #{blogThumbs,jdbcType=INTEGER},
+      </if>
+      <if test="blogDownload != null" >
+        blog_download = #{blogDownload,jdbcType=INTEGER},
+      </if>
+      <if test="blogComment != null" >
+        blog_comment = #{blogComment,jdbcType=INTEGER},
+      </if>
+      <if test="blogContent != null" >
+        blog_content = #{blogContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="club.sdll.ptc.mybatis.pojo.BlogNote" >
+    update blog_note
+    set title = #{title,jdbcType=VARCHAR},
+      second_title = #{secondTitle,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=CHAR},
+      blog_eye = #{blogEye,jdbcType=INTEGER},
+      blog_star = #{blogStar,jdbcType=INTEGER},
+      blog_thumbs = #{blogThumbs,jdbcType=INTEGER},
+      blog_download = #{blogDownload,jdbcType=INTEGER},
+      blog_comment = #{blogComment,jdbcType=INTEGER},
+      blog_content = #{blogContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="club.sdll.ptc.mybatis.pojo.BlogNote" >
+    update blog_note
+    set title = #{title,jdbcType=VARCHAR},
+      second_title = #{secondTitle,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=CHAR},
+      blog_eye = #{blogEye,jdbcType=INTEGER},
+      blog_star = #{blogStar,jdbcType=INTEGER},
+      blog_thumbs = #{blogThumbs,jdbcType=INTEGER},
+      blog_download = #{blogDownload,jdbcType=INTEGER},
+      blog_comment = #{blogComment,jdbcType=INTEGER}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+</mapper>
