@@ -24,7 +24,7 @@
     </environments>
 
     <mappers>
-        <mapper resource="club/sdll/mybatislearn/dao/mapping/BlogNoteMapper.xml"/>
+        <mapper resource="club/sdll/ptc/mybatis/dao/mapping/BlogNoteMapper.xml"/>
         <!--<package name="club.sdll.mybatislearn.dao.mapping.*"/>-->
     </mappers>
 </configuration>

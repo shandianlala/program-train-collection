@@ -1,15 +1,17 @@
-package club.sdll.mybatislearn.learn;
+package club.sdll.ptc.mybatis;
 
-import club.sdll.mybatislearn.learn.MybatisLearn;
+import club.sdll.ptc.mybatis.learn.MybatisLearn;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Before;
 import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * MybatisLearn Tester.
+ * git@github.com:shandianlala/mybatis-3.git
+ * git@github.com:apache/rocketmq.git
  *
  * @author <Authors name>
  * @version 1.0
@@ -47,7 +49,7 @@ public class MybatisLearnTest {
      */
     @Test
     public void testSelectByPrimaryKeyWithMapper() throws Exception {
-//TODO: Test goes here... 
+        //TODO: Test goes here...
     }
 
 

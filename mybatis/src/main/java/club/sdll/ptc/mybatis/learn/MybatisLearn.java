@@ -27,8 +27,7 @@ public class MybatisLearn {
         String resource = "mybatis-config.xml";
         try {
             //SqlSessionFactoryBuilder 读取配置文件
-            sessionFactory = new SqlSessionFactoryBuilder().build(Resources
-                    .getResourceAsReader(resource));
+            sessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader(resource));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,9 +51,7 @@ public class MybatisLearn {
      * @param sqlSession
      */
     public void selectByPrimaryKeyWithNamespace(SqlSession sqlSession, String id) {
-        BlogNote blogNote = sqlSession.selectOne(
-                "BlogNoteMapper.selectByPrimaryKey",
-                id);
+        BlogNote blogNote = sqlSession.selectOne("selectByPrimaryKey", id);
         System.out.println("blogNote={}" + blogNote);
 
     }
