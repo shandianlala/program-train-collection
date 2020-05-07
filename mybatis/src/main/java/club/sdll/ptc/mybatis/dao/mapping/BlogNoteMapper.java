@@ -1,4 +1,4 @@
-package club.sdll.ptc.mybatis.dao;
+package club.sdll.ptc.mybatis.dao.mapping;
 
 import club.sdll.ptc.mybatis.pojo.BlogNote;
 import org.apache.ibatis.annotations.Param;

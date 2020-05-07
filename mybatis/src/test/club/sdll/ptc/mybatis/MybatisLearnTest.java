@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Locale;
+
 /**
  * MybatisLearn Tester.
  * git@github.com:shandianlala/mybatis-3.git
@@ -19,9 +21,16 @@ import org.junit.Test;
  */
 public class MybatisLearnTest {
 
+    private MybatisLearn mybatisLearn;
+
+    private SqlSessionFactory sqlSessionFactory;
+
     @Before
     public void before() throws Exception {
         System.out.println("===========开始测试===========");
+        mybatisLearn = new MybatisLearn();
+        sqlSessionFactory = mybatisLearn.getSqlSessionFactory();
+        Assert.assertEquals("sqlSessionFactory不为空", true, sqlSessionFactory != null);
     }
 
     @After
@@ -35,9 +44,6 @@ public class MybatisLearnTest {
      */
     @Test
     public void testSelectByPrimaryKeyWithNamespace() throws Exception {
-        MybatisLearn mybatisLearn = new MybatisLearn();
-        SqlSessionFactory sqlSessionFactory = mybatisLearn.getSqlSessionFactory();
-        Assert.assertEquals("sqlSessionFactory不为空", true, sqlSessionFactory != null);
         SqlSession sqlSession = sqlSessionFactory.openSession();
         Assert.assertEquals("sqlSession不为空", true, sqlSession != null);
         mybatisLearn.selectByPrimaryKeyWithNamespace(sqlSession, "399545ac39474466a82e51131fd5b85d");
@@ -50,6 +56,11 @@ public class MybatisLearnTest {
     @Test
     public void testSelectByPrimaryKeyWithMapper() throws Exception {
         //TODO: Test goes here...
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        Assert.assertEquals("sqlSession不为空", true, sqlSession != null);
+        mybatisLearn.selectByPrimaryKeyWithMapper(sqlSession, "399545ac39474466a82e51131fd5b85d");
+//        System.out.println("STDOUT_LOGGING".toLowerCase(Locale.ENGLISH));
+
     }
 
 

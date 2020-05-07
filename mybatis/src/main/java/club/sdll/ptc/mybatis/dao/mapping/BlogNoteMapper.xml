@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="club.sdll.ptc.mybatis.dao.BlogNoteMapper" >
+<mapper namespace="club.sdll.ptc.mybatis.dao.mapping.BlogNoteMapper" >
   <resultMap id="BaseResultMap" type="club.sdll.ptc.mybatis.pojo.BlogNote" >
     <id column="id" property="id" jdbcType="CHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
@@ -14,12 +14,13 @@
     <result column="blog_thumbs" property="blogThumbs" jdbcType="INTEGER" />
     <result column="blog_download" property="blogDownload" jdbcType="INTEGER" />
     <result column="blog_comment" property="blogComment" jdbcType="INTEGER" />
+    <result column="ext1" property="ext1" jdbcType="VARCHAR" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="club.sdll.ptc.mybatis.pojo.BlogNote" extends="BaseResultMap" >
     <result column="blog_content" property="blogContent" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, title, second_title, status, create_time, update_time, type, blog_eye, blog_star, blog_thumbs, blog_download, blog_comment 
+    id, title, second_title, status, create_time, update_time, type, blog_eye, blog_star, blog_thumbs, blog_download, blog_comment, ext1
   </sql>
   <sql id="Blob_Column_List" >
     blog_content

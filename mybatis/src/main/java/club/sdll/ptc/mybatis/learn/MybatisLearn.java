@@ -1,6 +1,6 @@
 package club.sdll.ptc.mybatis.learn;
 
-import club.sdll.ptc.mybatis.dao.BlogNoteMapper;
+import club.sdll.ptc.mybatis.dao.mapping.BlogNoteMapper;
 import club.sdll.ptc.mybatis.pojo.BlogNote;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -14,8 +14,10 @@ import java.io.IOException;
  *
  * @author chengxiwang
  */
+
 public class MybatisLearn {
 
+    private SqlSessionFactory sessionFactory;
 
     /**
      * 获取 SqlSessionFactory
@@ -23,7 +25,6 @@ public class MybatisLearn {
      * @return
      */
     public SqlSessionFactory getSqlSessionFactory() {
-        SqlSessionFactory sessionFactory = null;
         String resource = "mybatis-config.xml";
         try {
             //SqlSessionFactoryBuilder 读取配置文件
