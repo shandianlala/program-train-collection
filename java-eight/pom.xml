@@ -16,7 +16,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>
-                4.12
+                4.13.1
             </version>
         </dependency>
     </dependencies>
