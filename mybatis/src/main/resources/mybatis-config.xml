@@ -8,13 +8,21 @@
 
     </properties>
     <settings>
+
         <!-- 打印查询语句 -->
         <setting name="logImpl" value="STDOUT_LOGGING" />
+
     </settings>
+
+
 
     <typeHandlers>
         <package name="club.sdll.ptc.mybatis.typehandler"/>
     </typeHandlers>
+
+    <plugins>
+        <plugin interceptor="club.sdll.ptc.mybatis.interceptor.TestInterceptor"></plugin>
+    </plugins>
 
     <environments default="development">
         <environment id="development">
