@@ -18,7 +18,10 @@ public class ScheduledThreadPoolExecutorTest {
 
 
     public static void main(String[] args) {
-        testScheduleCallable();
+//        testScheduleCallable();
+
+        testScheduleFixedRunnable();
+
     }
 
     private static void testScheduleCallable() {
@@ -60,6 +63,26 @@ public class ScheduledThreadPoolExecutorTest {
             }
         };
         scheduledThreadPoolExecutor.schedule(runnable, 3, TimeUnit.SECONDS);
+        scheduledThreadPoolExecutor.shutdown();
+    }
+
+    private static void testScheduleFixedRunnable() {
+        long currentTimeMillis = System.currentTimeMillis();
+        System.out.println("currentTimeMillis is " + currentTimeMillis);
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                long timeMills = System.currentTimeMillis() - currentTimeMillis;
+                System.out.println("Thread is " + Thread.currentThread().getName() + ", timeMills is " + timeMills);
+            }
+        };
+        scheduledThreadPoolExecutor.scheduleAtFixedRate(runnable, 2,3, TimeUnit.SECONDS);
+
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         scheduledThreadPoolExecutor.shutdown();
     }
 
