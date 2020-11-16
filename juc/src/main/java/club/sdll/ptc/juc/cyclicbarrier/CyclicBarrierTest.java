@@ -2,6 +2,7 @@ package club.sdll.ptc.juc.cyclicbarrier;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 /**
  * description
@@ -22,6 +23,8 @@ public class CyclicBarrierTest {
             System.out.println("=========");
         }
 
+
+
     }
 
     public static void testCommand() {
@@ -29,7 +32,7 @@ public class CyclicBarrierTest {
             @Override
             public void run() {
                 try {
-//                    Thread.sleep(1500L);
+//                    Thread.sleep(1000L);
                     c.await();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -41,9 +44,9 @@ public class CyclicBarrierTest {
         }).start();
 
         try {
-            Thread.sleep(1L);
+            Thread.sleep(100L);
             c.await();
-//            Thread.sleep(1L);
+//            Thread.sleep(1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {

@@ -9,7 +9,7 @@ package club.sdll.ptc.juc.annotation;
  */
 public class Student {
 
-
+    @BeanProperty(id = "name", description = "姓名")
     private String name;
 
 
@@ -18,7 +18,7 @@ public class Student {
 
     private String idCardNo;
 
-    @BeanProperty(id = "name", description = "姓名")
+
     public String getName() {
         return name;
     }
