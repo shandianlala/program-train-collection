@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class StreamTest {
 
-//    @Test
+    @Test
     public void streamTest() {
         final Collection<Streams.Task> tasks = Arrays.asList(
                 new Streams.Task(Streams.Status.OPEN, 5),
