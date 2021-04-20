@@ -25,6 +25,7 @@
         <module>logger</module>
         <module>spring-mvc</module>
         <module>imageocr</module>
+        <module>sword-offer</module>
     </modules>
 
     <dependencyManagement>
