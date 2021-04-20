@@ -22,7 +22,7 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
             <scope>compile</scope>
-            <version>4.1.22.Final</version>
+            <version>4.1.42.Final</version>
         </dependency>
 
 
