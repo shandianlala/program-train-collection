@@ -13,7 +13,7 @@
  						
 	<context:property-placeholder location="classpath:/conf/jdbc.properties" />
 
-	<context:component-scan base-package="club.sdll.controller">
+	<context:component-scan base-package="club.sdll.ptc.spring.controller">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 	</context:component-scan>
 	
@@ -29,16 +29,16 @@
 	
  	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
-		<property name="mapperLocations" value="classpath:club/sdll/dao/mapping/*Mapper.xml"></property>
+		<property name="mapperLocations" value="classpath:club/sdll/ptc/spring/dao/mapping/*Mapper.xml"></property>
 		<!--<property name="configLocation" value="classpath:conf/mybatis-config.xml"></property> -->
 	</bean> 
 	
 	<bean id="studentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface" value="club.sdll.dao.StudentMapper"></property>
+		<property name="mapperInterface" value="club.sdll.ptc.spring.dao.StudentMapper"></property>
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
 	</bean>
 	
-	<bean id="student" class="club.sdll.pojo.Student">
+	<bean id="student" class="club.sdll.ptc.spring.pojo.Student">
 		<!-- 通过无参构造方法、set方法注入userId的值 -->
 		<!-- <property name="userId" value="abc"/> -->
 		
@@ -54,7 +54,7 @@
 	</bean>
 	-->
 	
-	<bean id="courseService" class="club.sdll.service.impl.CourseServiceImpl">
+	<bean id="courseService" class="club.sdll.ptc.spring.service.impl.CourseServiceImpl">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
